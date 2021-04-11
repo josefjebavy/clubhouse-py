@@ -44,6 +44,9 @@ class Clubhouse:
     TWITTER_ID = "NyJhARWVYU1X3qJZtC2154xSI"
     TWITTER_SECRET = "ylFImLBFaOE362uwr4jut8S8gXGWh93S1TUKbkfh7jDIPse02o"
 
+    INSTAGRAM_ID = "1352866981588597"
+    INSTAGRAM_CALLBACK = "https://www.joinclubhouse.com/callback/instagram"
+
     AGORA_KEY = "938de3e8055e42b281bb8c6f69c21f78"
     SENTRY_KEY = "5374a416cd2d4009a781b49d1bd9ef44@o325556.ingest.sentry.io/5245095"
     INSTABUG_KEY = "4e53155da9b00728caa5249f2e35d6b3"
@@ -542,7 +545,7 @@ class Clubhouse:
         return req.json()
 
     @require_authentication
-    def join_channel(self, channel, attribution_source="feed"):
+    def join_channel(self, channel, attribution_source="feed", attribution_details="eyJpc19leHBsb3JlIjpmYWxzZSwicmFuayI6MX0="):
         """ (Clubhouse, str, str) -> dict
 
         Join the given channel
@@ -550,7 +553,7 @@ class Clubhouse:
         data = {
             "channel": channel,
             "attribution_source": attribution_source,
-            "attribution_details": "eyJpc19leHBsb3JlIjpmYWxzZSwicmFuayI6MX0=",
+            "attribution_details": attribution_details, # base64_json
         }
         req = requests.post(f"{self.API_URL}/join_channel", headers=self.HEADERS, json=data)
         return req.json()
